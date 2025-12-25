@@ -4,24 +4,24 @@ SimpleCut is a lightweight, powerful video editing application built with Electr
 
 ## Features
 
-### 🎬 Timeline Editing
+###  Timeline Editing
 - **Multi-Track Support**: Layer videos, audio, and text.
 - **Drag & Drop**: Easily arrange clips on the timeline.
 - **Smart Snapping**: Clips align automatically (magnetic timeline feel).
 - **Zoom & Scroll**: Fluid navigation with pixel-perfect precision.
 
-### ⚡ Performance
+###  Performance
 - **Proxy Generation**: Automatically creates low-res proxies for smooth playback of 4K/high-bitrate footage.
 - **Smart Caching**: Thumbnails and waveforms are cached for instant loading.
 - **Hardware Acceleration**: Utilizes FFmpeg for efficient media processing.
 
-### 🎨 Creative Tools
+###  Creative Tools
 - **Keyframe Animation**: Animate properties like position, scale, and opacity.
 - **Split & Trim**: Precise cutting tools.
 - **Text Overlays**: Add dynamic text with customizable fonts and styles.
 - **Filters**: Apply visual effects to your clips.
 
-### 🚀 Export
+###  Export
 - **High-Quality Output**: Export to MP4 with customizable resolution and frame rates.
 - **Fast Rendering**: Optimized FFmpeg pipeline.
 
