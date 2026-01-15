@@ -133,6 +133,7 @@ function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history, historyIndex, selectedClipId, clips]);
 
   useEffect(() => {
@@ -165,6 +166,7 @@ function App() {
       animationFrame = requestAnimationFrame(loop);
     }
     return () => cancelAnimationFrame(animationFrame);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlaying, duration]);
 
   // Sync video elements with global time
@@ -227,7 +229,7 @@ function App() {
       // Check if video and generate proxy
       if (filePath.match(/\.(mp4|mov|mkv|webm)$/i)) {
         console.log('Generating proxy for:', filePath);
-        (window as any).ipcRenderer.invoke('generate-proxy', filePath).then((proxyPath: string) => {
+        window.ipcRenderer.invoke('generate-proxy', filePath).then((proxyPath: string) => {
           console.log('Proxy generated:', proxyPath);
 
           // Format as media URL
@@ -248,7 +250,7 @@ function App() {
 
             // Generate thumbnails with adaptive density
             console.log('Generating thumbnails for:', filePath, 'duration:', duration);
-            (window as any).ipcRenderer.invoke('generate-thumbnails', filePath, duration).then((thumbnails: string[]) => {
+            window.ipcRenderer.invoke('generate-thumbnails', filePath, duration).then((thumbnails: string[]) => {
               console.log('Thumbnails generated:', thumbnails.length);
               // Format thumb paths with media protocol
               const mediaTrailedThumbs = thumbnails.map(t => {
@@ -447,13 +449,13 @@ function App() {
       timeline: { duration, clips },
       lastModified: Date.now()
     };
-    const result = await (window as any).ipcRenderer.invoke('save-project', projectData);
+    const result = await window.ipcRenderer.invoke('save-project', projectData);
     if (result.success) alert('Project saved!');
     else if (result.message !== 'Cancelled') alert('Save failed: ' + result.message);
   };
 
   const handleLoad = async () => {
-    const result = await (window as any).ipcRenderer.invoke('load-project');
+    const result = await window.ipcRenderer.invoke('load-project');
     if (result && result.success) {
       const data = result.data;
       if (data.timeline) {
@@ -503,7 +505,7 @@ function App() {
     setShowExportModal(false);
     setIsExporting(true);
     try {
-      const result = await (window as any).ipcRenderer.invoke('export-video', {
+      const result = await window.ipcRenderer.invoke('export-video', {
         clips, tracks, duration, settings: exportSettings
       });
       if (result && result.success) alert(`Export successful! Saved to: ${result.path}`);
@@ -909,7 +911,7 @@ function App() {
                         <select
                           value={selectedClip.animation?.type || ''}
                           onChange={(e) => {
-                            const type = e.target.value as any;
+                            const type = e.target.value as NonNullable<Clip['animation']>['type'];
                             if (type) {
                               updateClip(selectedClip.id, {
                                 animation: {
